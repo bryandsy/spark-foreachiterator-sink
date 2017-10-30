@@ -15,9 +15,9 @@ object IteratorWriter extends LazyLogging {
       parameters: Map[String, String],
       queryExecution: QueryExecution,
       expressionEncoder: ExpressionEncoder[T],
-      writerTaskFactory: (Map[String, String], ExpressionEncoder) => W): Unit = {
+      writerTaskFactory: (Map[String, String], ExpressionEncoder[T]) => W): Unit = {
     queryExecution.toRdd.foreachPartition { iter =>
-      val writeTask: W = writerFactory(parameters, expressionEncoder)
+      val writeTask: W = writerTaskFactory(parameters, expressionEncoder)
       TryUtils.tryWithSafeFinally(block = writeTask.execute(iter))(
         finallyBlock = writeTask.close())
     }
