@@ -1,4 +1,4 @@
-package com.grab.trust.ghostbuster.streaming.spark.redis
+package com.idyllic.spark.streaming
 
 import com.typesafe.scalalogging.LazyLogging
 
